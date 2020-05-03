@@ -1,0 +1,17 @@
+{
+  "name": "ergasia-1",
+  "version": "1.0.0",
+  "description": "test nodejs project",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "sqlite3": "^4.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test, express, sqlite3",
+    "start": "node server.js"
+  },
+  "author": "Pavlos Andreou",
+  "license": "Apache-2.0"
+}

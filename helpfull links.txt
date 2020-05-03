@@ -1,0 +1,10 @@
+https://stackoverflow.com/questions/23359372/connect-html-page-with-sql-server-using-javascript
+https://stackoverflow.com/questions/857670/how-to-connect-to-sql-server-database-from-javascript-in-the-browser
+https://www.froglogic.com/blog/accessing-sql-database-javascript-test/
+https://github.com/sidorares/node-mysql2
+
+
+
+
+
+https://www.researchgate.net/post/How_to_link_SQL_data_table_with_javascript_and_html

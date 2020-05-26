@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>first delivrable</title>
-        <style>  
+        <style>  /*CSS*/
             /*droped down menu*/
             .collapsible {
             background-color: #777;
@@ -65,14 +65,14 @@
         <div class="content">
             <form action="/action_page.php">
                 <label for="author">author</label>
-                <input type="text" name="text" placeholder="author">
+                <input id="author" type="text" name="text" placeholder="author">
 
                 <label for="title">title</label>
-                <input type="text" name="text" placeholder="title">
+                <input id="title" type="text" name="text" placeholder="title">
 
                 <label for="genre">genre</label>
                 <form>
-                    <select name="genre">
+                    <select id="genre" name="genre">
                         <option selected="true" disabled="disabled">Select a genre</option>   
                         <option value="Science fiction">Science fiction</option>
                         <option value="Satire">Satire</option>
@@ -85,9 +85,9 @@
                 </form>
 
                 <label for="price">price</label>
-                <input type="text" name="text" placeholder="price">
+                <input id="price" type="text" name="text" placeholder="price">
 
-                <input id="submit" type="submit" value="Submit">
+                <input id="addbook" type="submit" value="Submit">
             </form>
         </div>
         <button id="button2" type="button" class="collapsible">search book</button>
@@ -98,12 +98,11 @@
             </form>
         </div>
     </body>
-    <script type="text/javascript">
-        var coll = document.getElementsByClassName("collapsible");
-        const submit = document.getElementById('submit');
-        var i;
 
-        for (i = 0; i < coll.length; i++) {
+    <script type="text/javascript">
+		// collapsable buttons 
+        var coll = document.getElementsByClassName("collapsible");
+		for (var i = 0; i < coll.length; i++) {
             coll[i].addEventListener("click", function() {
                 this.classList.toggle("active");
                 var content = this.nextElementSibling;
@@ -114,25 +113,50 @@
                 }
             });
         }
-        
-        submit.addEventListener('click',function(event){
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET','http://localhost:3000');
-            xhr.send();
+
+		// the add new book button
+		document.getElementById('addbook').addEventListener('click', function(event){
+            const xhr=new XMLHttpRequest();
+            xhr.open('post', 'http://localhost:3000/addBook');
+            xhr.setRequestHeader('Content-Type','application/json');
+            const book = {
+                id: document.getElementById('id').value,
+                author: document.getElementById('author').value,
+                title: document.getElementById('title').value,
+                genre: document.getElementById('genre').value,
+                price: document.getElementById('price').value
+            };
+            xhr.send(JSON.stringify(book));
             xhr.onreadystatechange = function(){
-                if (xhr.readyState== 4){
+                if (xhr.readyState == 4){
                     if (xhr.status == 200){
-                        const result = JSON.parse(xhr.responseText);
-                        const pElem = document.createElement('p');
-                        const text = document.createTextNode(author);
-                        pElem.appendChild(text);
-                        const divElem = document.getElementById('author');
-                        divElem.appendChild(pElem);
-                        alert(author);
+                        alert('ok');
                     }
-                }
-            }
+                }    
+            };
         });
+
+        // search button
+
+        // const submit = document.getElementById('submit');
+        // submit.addEventListener('click',function(event){
+        //     const xhr = new XMLHttpRequest();
+        //     xhr.open('GET','http://localhost:3000/getBooks');
+        //     xhr.send();
+        //     xhr.onreadystatechange = function(){
+        //         if (xhr.readyState== 4){
+        //             if (xhr.status == 200){
+        //                 const result = JSON.parse(xhr.responseText);
+        //                 const pElem = document.createElement('p');
+        //                 const text = document.createTextNode(author);
+        //                 pElem.appendChild(text);
+        //                 const divElem = document.getElementById('author');
+        //                 divElem.appendChild(pElem);
+        //                 alert(author);
+        //             }
+        //         }
+        //     }
+        // });
     </script>
 <!--
     <form action="/action_page.php">

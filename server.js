@@ -10,28 +10,37 @@ const books = [];
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('./server.sqlite3')
 
-db.each("SELECT * FROM server", function(err, row){
+db.each("SELECT * FROM books", function(err, row){
     if (!err){
         console.log(JSON.stringify(row));//ektipni
         books.push(row);//vali ta sto books
     }
 });
-
-app.get('/getUsers',function(req, res){
-    res.send(users);
+app.get(function(req, res){
+    db.run(`INSERT INTO books(id, author, title, genre, price) VALUES(req.params.id, req.params.author, req.params.title, req.params.genre, req.params.price)`, ['C'], function(err) {
+        if (err) {
+          return console.log(err.message);
+        }
+        console.log(`A row has been inserted with rowid ${this.lastID}`);
+    });
 });
 
-app.post('/addUser', function(req, res){
+
+app.get('/getBooks',function(req, res){
+    res.send(books);
+});
+
+app.post('/addBook', function(req, res){
     console.log(JSON.stringify(req.body));
-    users.push(req.body);
+    books.push(req.body);
     res.send();
 });
 
-app.get('/getUser/:id', function(req,res){
+app.get('/getBook/:title', function(req,res){
     let result = {message:'not found'};
-    for(let i=0;i<users.length;i++){
-        if (users[i].id == req.params.id){
-            result = users[i];
+    for(let i=0;i<books.length;i++){
+        if (books[i].id == req.params.id){
+            result = books[i];
             break;
         }
     }
